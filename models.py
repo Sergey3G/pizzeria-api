@@ -53,3 +53,4 @@ class Order(Base):
     pizza_id = Column(Integer)
     pizzeria_id = Column(Integer)
     date = Column(Date)
+    price = Column(Float)
