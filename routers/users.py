@@ -10,6 +10,8 @@ from crud import create_user, authenticate_user, get_user, update_user
 from utils import create_access_token, create_refresh_token, decode_access_token
 from auth import get_current_user, require_admin, oauth2_scheme
 from blacklisted_tokens import add_to_blacklist
+from custom_types import PositiveInt
+
 
 router = APIRouter()
 
@@ -55,7 +57,7 @@ async def logout(token: str = Depends(oauth2_scheme)):
 
 
 @router.get("/user/{user_id}", response_model=UserOut)
-async def get_user_by_id(user_id: int, db: AsyncSession = Depends(get_db)):
+async def get_user_by_id(user_id: PositiveInt, db: AsyncSession = Depends(get_db)):
     user = await get_user(db, user_id)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
